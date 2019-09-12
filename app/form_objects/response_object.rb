@@ -13,6 +13,10 @@ class ResponseObject
   private
 
   def validate_status!(status)
-    raise "Status #{status.inspect} not supported" if %i[ok no_content].exclude?(status)
+    raise "Status #{status.inspect} not supported" if invalid_status?(status)
+  end
+
+  def invalid_status?(status)
+    %i[ok no_content created internal_server_error bad_request].exclude?(status)
   end
 end

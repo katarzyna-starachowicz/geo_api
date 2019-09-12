@@ -17,6 +17,10 @@ require 'action_cable/engine'
 
 Bundler.require(*Rails.groups)
 
+module Types
+  include Dry.Types
+end
+
 module GeoApi
   class Application < Rails::Application
     config.load_defaults 5.2

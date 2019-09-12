@@ -9,4 +9,14 @@ class ApplicationService
       json: given_areas
     )
   end
+
+  def create_location(location_attributes)
+    new_location = Location.new(location_attributes)
+    new_location.save
+
+    ::ResponseObject.new(
+      status: :created,
+      json: { location_id: new_location.id }
+    )
+  end
 end
