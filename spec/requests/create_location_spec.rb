@@ -7,14 +7,14 @@ RSpec.describe 'create location', type: :request do
     before do
       expect_any_instance_of(ApplicationService)
         .to receive(:create_location)
-        .with(name: 'Tokio', status: 'just_created')
+        .with(name: 'Tokio')
         .and_return(response_object)
     end
 
     let(:response_object) do
       ResponseObject.new(
         status: :created,
-        json: { location_id: 239 }
+        body: { location_id: 239 }
       )
     end
 

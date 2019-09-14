@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ResponseObject
-  attr_reader :status, :json
+  attr_reader :status, :body
 
-  def initialize(status:, json:)
+  def initialize(status:, body: {})
     validate_status!(status)
 
     @status = status
-    @json = json
+    @body = body
   end
 
   private
@@ -17,6 +17,6 @@ class ResponseObject
   end
 
   def invalid_status?(status)
-    %i[ok no_content created internal_server_error bad_request].exclude?(status)
+    %i[ok no_content created internal_server_error bad_request unprocessable_entity].exclude?(status)
   end
 end

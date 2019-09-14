@@ -13,7 +13,7 @@ RSpec.describe 'fetch given areas', type: :request do
     let(:response_object) do
       ResponseObject.new(
         status: :ok,
-        json: { given_areas: 'given_areas' }
+        body: { given_areas: 'given_areas' }
       )
     end
 

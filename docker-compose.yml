@@ -12,6 +12,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: geo_api_development
+      REDIS_URL: "redis://redis:6379/12"
 
   database:
     image: postgres
@@ -19,4 +20,23 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: geo_api_development
+
+  redis:
+    image: redis
+
+  sidekiq:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    command: 'bundle exec sidekiq'
+    environment:
+      REDIS_URL: "redis://redis:6379/12"
+      DATABASE_HOST: database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: geo_api_development
+      # TODO, improve env variables handling
+      GOOGLE_GEOCODING_API_KEY: use_your_own
+    depends_on:
+      - redis
 

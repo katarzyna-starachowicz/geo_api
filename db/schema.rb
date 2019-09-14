@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_183017) do
+ActiveRecord::Schema.define(version: 2019_09_14_103819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 2019_09_12_183017) do
     t.string "status", default: "just_created", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "point_id"
+    t.index ["point_id"], name: "index_locations_on_point_id"
   end
 
+  create_table "points", force: :cascade do |t|
+    t.float "latitude"
+    t.float "longitude"
+  end
+
+  add_foreign_key "locations", "points"
 end

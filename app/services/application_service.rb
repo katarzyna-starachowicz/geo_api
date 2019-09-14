@@ -6,17 +6,20 @@ class ApplicationService
 
     ::ResponseObject.new(
       status: given_areas.present? ? :ok : :no_content,
-      json: given_areas
+      body: given_areas
     )
   end
 
   def create_location(location_attributes)
-    new_location = Location.new(location_attributes)
-    new_location.save
+    new_location = ::Location.find_or_create_by(
+      name: location_attributes.fetch(:name)
+    )
+
+    ::DetermineLocationCoordinatesJob.perform_later(new_location.name, new_location.id)
 
     ::ResponseObject.new(
       status: :created,
-      json: { location_id: new_location.id }
+      body: { location_id: new_location.id }
     )
   end
 end

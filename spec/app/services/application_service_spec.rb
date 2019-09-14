@@ -28,21 +28,25 @@ RSpec.describe ApplicationService do
   end
 
   describe '#create_location' do
-    let(:new_location) { double('new_location', save: nil, id: 389) }
+    let(:new_location) { double('new_location', save: nil, id: 389, name: 'Tokio') }
 
     before do
       allow(Location)
-        .to receive(:new)
-        .with(name: 'Tokio', status: 'just_created')
+        .to receive(:find_or_create_by)
+        .with(name: 'Tokio')
         .and_return(new_location)
+
+      allow(DetermineLocationCoordinatesJob)
+        .to receive(:perform_later)
+        .with('Tokio', 389)
     end
 
     it 'returns response object with :created status' do
       expect(subject.create_location(name: 'Tokio', status: 'just_created').status).to eq(:created)
     end
 
-    it 'returns response object with location id in json' do
-      expect(subject.create_location(name: 'Tokio', status: 'just_created').json).to eq(location_id: 389)
+    it 'returns response object with location id in body' do
+      expect(subject.create_location(name: 'Tokio', status: 'just_created').body).to eq(location_id: 389)
     end
   end
 end

@@ -9,9 +9,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dry-struct', '~> 1.0.0'
 gem 'dry-types', '~> 1.1.1'
 gem 'dry-validation', '~> 1.3.1'
+gem 'httparty', '~> 0.17.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.0'
+gem 'redis', '~> 4.0'
+gem 'sidekiq', '~> 6.0.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

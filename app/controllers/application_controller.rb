@@ -8,6 +8,6 @@ class ApplicationController < ActionController::API
   end
 
   def respond_with(response_object)
-    render status: response_object.status, json: response_object.json
+    render status: response_object.status, json: response_object.body
   end
 end

@@ -11,7 +11,7 @@ module Api
           respond_with(
             ::ResponseObject.new(
               status: :bad_request,
-              json: { error: validation_result.errors.to_h }
+              body: { error: validation_result.errors.to_h }
             )
           )
         else
