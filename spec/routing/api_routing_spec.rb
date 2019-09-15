@@ -16,4 +16,11 @@ RSpec.describe 'api routing', :aggregate_failures, type: :routing do
         .to route_to(format: 'json', controller: 'api/v1/locations', action: 'create')
     end
   end
+
+  describe 'given location fetching' do
+    it 'routes api' do
+      expect(get: 'api/v1/locations/1')
+        .to route_to(format: 'json', controller: 'api/v1/locations', action: 'show', id: '1')
+    end
+  end
 end

@@ -17,6 +17,14 @@ class ResponseObject
   end
 
   def invalid_status?(status)
-    %i[ok no_content created internal_server_error bad_request unprocessable_entity].exclude?(status)
+    %i[
+      ok
+      no_content
+      created
+      internal_server_error
+      bad_request
+      expectation_failed
+      unprocessable_entity
+    ].exclude?(status)
   end
 end

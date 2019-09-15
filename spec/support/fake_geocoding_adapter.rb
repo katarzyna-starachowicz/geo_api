@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FakeGeocodingAdapter
   class Success
     def determine_coordinates_of(_location_name)
