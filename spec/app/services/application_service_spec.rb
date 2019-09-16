@@ -54,6 +54,7 @@ RSpec.describe ApplicationService do
     let(:location_attributes) { { id: 22 } }
     let(:point) { Point.new(latitude: 35.6803997, longitude: 139.7690174) }
     let(:location) { double('location', name: 'Tokio', status: location_status, point: point) }
+    let(:given_areas_service) { double('given_areas_service', point_inside?: false) }
 
     before do
       expect(Location)
@@ -68,8 +69,15 @@ RSpec.describe ApplicationService do
         {
           name: 'Tokio',
           latitude: 35.6803997,
-          longitude: 139.7690174
+          longitude: 139.7690174,
+          inside?: false
         }
+      end
+
+      before do
+        expect(GivenAreasService)
+          .to receive(:new)
+          .and_return(given_areas_service)
       end
 
       it 'returns response object with :ok status' do

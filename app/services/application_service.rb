@@ -26,6 +26,17 @@ class ApplicationService
   def fetch_location(location_attributes)
     location = ::Location.find(location_attributes.fetch(:id))
 
+    generate_fetch_location_response_object(location)
+  rescue ::ActiveRecord::RecordNotFound => e
+    ::ResponseObject.new(
+      status: :expectation_failed,
+      body: { error: { id: [e.message] } }
+    )
+  end
+
+  private
+
+  def generate_fetch_location_response_object(location)
     case location.status
     when 'just_created'
       ::ResponseObject.new(status: :no_content)
@@ -33,22 +44,19 @@ class ApplicationService
       ::ResponseObject.new(status: :unprocessable_entity)
     when 'coordinates_determinated'
       location_point = location.point
+      point_inside = GivenAreasService.new.point_inside?(location_point)
 
       ::ResponseObject.new(
         status: :ok,
         body: {
           name: location.name,
           latitude: location_point.latitude,
-          longitude: location_point.longitude
+          longitude: location_point.longitude,
+          inside?: point_inside
         }
       )
     else
       raise "Unsupported location status #{location.status}"
     end
-  rescue ::ActiveRecord::RecordNotFound => e
-    ::ResponseObject.new(
-      status: :expectation_failed,
-      body: { error: { id: [e.message] } }
-    )
   end
 end

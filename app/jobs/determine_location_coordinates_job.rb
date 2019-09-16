@@ -8,9 +8,9 @@ class DetermineLocationCoordinatesJob < ApplicationJob
   end
 
   def perform(location_name, location_id)
-    geolocation_service = ::GeocodingService.new
+    geocoding_service = ::GeocodingService.new
 
-    geolocation_service
+    geocoding_service
       .determine_location_coordinates(location_name, location_id)
   end
 end
