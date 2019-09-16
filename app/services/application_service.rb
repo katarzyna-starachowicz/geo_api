@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../lib/given_areas/data_from_file.rb'
+
 class ApplicationService
   def fetch_given_areas
     given_areas = ::GivenAreas::DataFromFile.read

@@ -13,6 +13,7 @@ services:
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: geo_api_development
       REDIS_URL: "redis://redis:6379/12"
+      RAILS_MAX_THREADS: 5
 
   database:
     image: postgres
@@ -22,7 +23,7 @@ services:
       POSTGRES_DB: geo_api_development
 
   redis:
-    image: redis
+    image: redis:3.2.1
 
   sidekiq:
     build: .

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../lib/given_areas/data_from_file.rb'
+
 class GivenAreasService
   def point_inside?(location_point)
     polygons.any? { |polygon| point_inside_polygon?(polygon, location_point) }

@@ -13,8 +13,8 @@ gem 'httparty', '~> 0.17.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.0'
-gem 'redis', '~> 4.0'
-gem 'sidekiq', '~> 6.0.0'
+gem 'redis', '~> 3.2.1'
+gem 'sidekiq', '~> 3.1.4'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
